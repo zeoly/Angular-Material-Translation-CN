@@ -24,3 +24,6 @@ completed list:
 ### 4.按钮，标志与图标 BUTTONS, INDICATORS & ICONS
 
 * [1.按钮 Button](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/4.%E6%8C%89%E9%92%AE%EF%BC%8C%E6%A0%87%E5%BF%97%E4%B8%8E%E5%9B%BE%E6%A0%87%20BUTTONS%2C%20INDICATORS%20%26%20ICONS/1.%E6%8C%89%E9%92%AE%20Button.md)
+
+### 5.弹出窗与模态框 POPUPS & MODALS
+* [1.对话框 Dialog](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/5.%E5%BC%B9%E5%87%BA%E7%AA%97%E4%B8%8E%E6%A8%A1%E6%80%81%E6%A1%86%20POPUPS%20&%20MODALS/1.%E5%AF%B9%E8%AF%9D%E6%A1%86%20Dialog.md)
