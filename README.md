@@ -28,3 +28,6 @@ completed list:
 
 ### 5.弹出窗与模态框 POPUPS & MODALS
 * [1.对话框 Dialog](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/5.%E5%BC%B9%E5%87%BA%E7%AA%97%E4%B8%8E%E6%A8%A1%E6%80%81%E6%A1%86%20POPUPS%20&%20MODALS/1.%E5%AF%B9%E8%AF%9D%E6%A1%86%20Dialog.md)
+
+### 6.数据表 DATA TABLE
+* [Table 表格](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Table%20%E8%A1%A8%E6%A0%BC.md)
