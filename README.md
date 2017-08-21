@@ -20,6 +20,7 @@ completed list:
 * [2.复选框 Checkbox](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/2.%E5%A4%8D%E9%80%89%E6%A1%86%20Checkbox.md)
 * [4.输入框 Input](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/4.%E8%BE%93%E5%85%A5%E6%A1%86%20Input.md)
 * [5.单选按钮 Radio button](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/5.%E5%8D%95%E9%80%89%E6%8C%89%E9%92%AE%20Radio%20button.md)
+* [6.下拉框 Select](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/6.%E4%B8%8B%E6%8B%89%E6%A1%86%20Select.md)
 
 ### 4.按钮，标志与图标 BUTTONS, INDICATORS & ICONS
 
