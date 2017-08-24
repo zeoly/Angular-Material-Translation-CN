@@ -31,3 +31,4 @@ completed list:
 
 ### 6.数据表 DATA TABLE
 * [表格 Table](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Table%20%E8%A1%A8%E6%A0%BC.md)
+* [分页器 Paginator](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Paginator%20%E5%88%86%E9%A1%B5%E5%99%A8.md)
