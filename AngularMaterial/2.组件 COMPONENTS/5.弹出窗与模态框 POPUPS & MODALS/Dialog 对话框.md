@@ -175,10 +175,20 @@ afterAllClosed|获取一个观察所有对话框已关闭的对象|Gets an obser
 
 > Methods
 
-方法名|描述|Description
--|-|-
-open|打开包含指定组件的对话框。|Opens a modal dialog containing the given component.
-closeAll|关闭所有当前已打开的对话框。|Closes all of the currently-open dialogs.
+open
+---
+- 描述
+  - 打开包含指定组件的对话框。
+- 参数
+  - componentOrTemplateRef (ComponentType<T> | TemplateRef<T>)：加载进对话框的组件类型，或者是作为对话框内容实例化的TemplateRef
+  - config? (MdDialogConfig)：附加设置。
+- 返回
+  - MdDialogRef<T>：新打开的对话框参考。
+
+closeAll
+---
+- 描述
+  - 关闭所有当前已打开的对话框。
 
 ## 指令
 
