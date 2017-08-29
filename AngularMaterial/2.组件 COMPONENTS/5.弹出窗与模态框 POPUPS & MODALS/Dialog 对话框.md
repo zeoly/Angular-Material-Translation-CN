@@ -285,3 +285,5 @@ close|关闭对话框。|Close the dialog.
 afterClosed|获取观察对话框关闭完成的对象|Gets an observable that is notified when the dialog is finished closing.
 updatePosition|更新对话框位置。|Updates the dialog's position.
 updateSize|更新对话框宽度与高度。|Updates the dialog's width and height.
+
+*翻译部分版权归YahaCode团队所有。仅供学习研究之用，任何组织或个人不得私自以此用于任何形式的商业目的*
