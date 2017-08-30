@@ -18,6 +18,7 @@ completed list:
 ### 1.表单控制 FORM CONTROLS
 * [自动完成 Aotucomplete](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Aotucomplete%20%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90.md)
 * [复选框 Checkbox](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Checkbox%20%E5%A4%8D%E9%80%89%E6%A1%86.md)
+* [日期选择器 Datepicker](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Datepicker%20%E6%97%A5%E6%9C%9F%E9%80%89%E6%8B%A9%E5%99%A8.md)
 * [输入框 Input](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Input%20%E8%BE%93%E5%85%A5%E6%A1%86.md)
 * [单选按钮 Radio button](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Radio%20button%20%E5%8D%95%E9%80%89%E6%8C%89%E9%92%AE.md)
 * [下拉框 Select](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/1.%E8%A1%A8%E5%8D%95%E6%8E%A7%E5%88%B6%20FORM%20CONTROLS/Select%20%E4%B8%8B%E6%8B%89%E6%A1%86.md)
