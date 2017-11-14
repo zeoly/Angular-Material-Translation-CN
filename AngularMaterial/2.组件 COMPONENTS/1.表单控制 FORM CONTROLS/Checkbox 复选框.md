@@ -16,9 +16,9 @@
 
 > The checkbox label is provided as the content to the `<mat-checkbox>` element. The label can be positioned before or after the checkbox by setting the `labelPosition` property to `'before'` or `'after'`.
 
-如果不想复选框旁边出现标签，可以使用`[aria-label](https://www.w3.org/TR/wai-aria/states_and_properties#aria-label)`或者`[aria-labelledby](https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)`来指定合适的标签。
+如果不想复选框旁边出现标签，可以使用[`aria-label`](https://www.w3.org/TR/wai-aria/states_and_properties#aria-label)或者[`aria-labelledby`](https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)来指定合适的标签。
 
-> If you don't want the label to appear next to the checkbox, you can use `[aria-label](https://www.w3.org/TR/wai-aria/states_and_properties#aria-label)` or `[aria-labelledby](https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)` to specify an appropriate label.
+> If you don't want the label to appear next to the checkbox, you can use [`aria-label`](https://www.w3.org/TR/wai-aria/states_and_properties#aria-label) or [`aria-labelledby`](https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby) to specify an appropriate label.
 
 ## 使用`@angular/forms`
 
