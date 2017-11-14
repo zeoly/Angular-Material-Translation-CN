@@ -124,12 +124,12 @@
 > Accessibility
 
 自动完成中的输入框如果没有文本和标签，需要通过`aria-label`或者`aria-labelledby`来指定一个有意义的标签。
-`
-The input for autocomplete without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
+
+> The input for autocomplete without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
 指定`role="combobox"`设置自动完成的触发器。此触发器设置`aria-owns`为自动完成的id，设置`aria-activedescendant`为当前备选项的id。
 
-Autocomplete trigger is given `role="combobox"`. The trigger sets `aria-owns` to the autocomplete's id, and sets `aria-activedescendant` to the active option's id.
+> Autocomplete trigger is given `role="combobox"`. The trigger sets `aria-owns` to the autocomplete's id, and sets `aria-activedescendant` to the active option's id.
 
 # API
 
