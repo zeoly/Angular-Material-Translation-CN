@@ -6,36 +6,36 @@
 
 > In order to style your own components with Angular Material's tooling, the component's styles must be defined with Sass.
 
-## 使用 @mixin 自动应用主题
+## 使用 `@mixin` 自动应用主题
 
-> Using @mixin to automatically apply a theme
+> Using `@mixin` to automatically apply a theme
 
-**为什么使用@mixin**
+**为什么使用`@mixin`**
 
-> Why using @mixin
+> Why using `@mixin`
 
-使用@mixin方法的优点是，当你更改主题后，每个使用到主题的文件能自动更新。在应用或者组件内可以通过引入不同的主题参数来使用多重主题。
+使用`@mixin`方法的优点是，每当你更改主题的时候，使用的每个文件都会被自动更新。可以在应用或者组件中调用@mixin的时候引入不同的主题参数，来使用多重主题。
 
-> The advantage of using a @mixin function is that when you change your theme, every file that uses it will be updated automatically. Calling it with a different theme argument allow multiple themes within the app or component.
+> The advantage of using a `@mixin` function is that when you change your theme, every file that uses it will be automatically updated. Calling the `@mixin` with a different theme argument allows multiple themes within the app or component.
 
-**如何使用@mixin**
+**如何使用`@mixin`**
 
-> How to use @mixin
+> How to use `@mixin`
 
-在主题文件中添加一个@mixin的方法，然后调用这个方法来应用主题，这样我们就能更好地定制自定义组件的主题。
+通过把`@mixin`方法添加到主题文件中，然后调用这个方法应用主题，这样我们就能够更好地主题化自定义组件。
 
-> We can better theming our custom components adding a @mixin function to its theme file and then calling this function to apply a theme.
+> We can better theming our custom components adding a `@mixin` function to its theme file and then calling this function to apply a theme.
 
-你需要做的只是在自定义组件主题的scss文件中创建一个@mixin方法。
+你只须要在custom-component-theme.scss文件中创建一个`@mixin`方法。
 
-> All you need is to create a @mixin function in the custom-component-theme.scss
+> All you need is to create a `@mixin` function in the custom-component-theme.scss
 
-```typescript
+```scss
 // Import all the tools needed to customize the theme and extract parts of it
 @import '~@angular/material/theming';
 
 // Define a mixin that accepts a theme and outputs the color styles for the component.
-@mixin candy-carousel-theme($theme) {
+`@mixin` candy-carousel-theme($theme) {
 // Extract whichever individual palettes you need from the theme.
 $primary: map-get($theme, primary);
 $accent: map-get($theme, accent);
@@ -48,11 +48,11 @@ border-color: mat-color($accent, A400);
 }
 ```
 
-现在你只要调用@mixin方法就可以应用主题了：
+现在你只要调用`@mixin`方法就可以应用主题了：
 
-> Now you just have to call the @mixin function to apply the theme:
+> Now you just have to call the `@mixin` function to apply the theme:
 
-```typescript
+```scss
 // Import a pre-built theme
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 // Import your custom input theme file so you can call the custom-input-theme function
@@ -60,34 +60,39 @@ border-color: mat-color($accent, A400);
 
 // Using the $theme variable from the pre-built theme you can call the theming function
 @include candy-carousel-theme($theme);
-For more details about the theming functions, see the comments in the source.
 ```
 
-**使用@mixin的最佳实践。**
+可以查看[源码]( https://github.com/angular/material2/blob/master/src/lib/core/theming/_theming.scss)中的注释，来了解更多关于主题函数的细节。
 
-> Best practices using @mixin
 
-当使用@mixin的时候，主题文件只应该包含只认证过的主题定义。
+> For more details about the theming functions, see the comments in the source.
 
-> When using @mixin, the theme file should only contain the definitions that are affected by the passed-in theme.
 
-所有不被主题影响的样式应该放在candy-carousel.scss文件中。这个文件应该包含所有不被主题样式所影响，如大小(sizes)，转换(transitions)等...
+**使用`@mixin`的最佳实践。**
 
-> All styles that are not affected by the theme should be placed in a candy-carousel.scss file. This file should contain everything that is not affected by the theme like sizes, transitions...
+> Best practices using `@mixin`
 
-被主题影响的模式应该放在不同分离的主题文件中，如 \_candy-carousel.theme.scss与名字前有\_的文件。这个文件应该包含负责应用组件主题的@mixin方法
+当使用`@mixin`的时候，主题文件只应该包含只认证过的主题定义。
 
-> Styles that are affected by the theme should be placed in a separated theming file as _candy-carousel-theme.scss and the file should have a _ before the name. This file should contain the @mixin function responsible for applying the theme to the component.
+> When using `@mixin`, the theme file should only contain the definitions that are affected by the passed-in theme.
+
+所有不被主题影响的样式应该放在`candy-carousel.scss`文件中。这个文件应该包含所有不被主题样式所影响，如大小(sizes)，转换(transitions)等...
+
+> All styles that are not affected by the theme should be placed in a `candy-carousel.scss` file. This file should contain everything that is not affected by the theme like sizes, transitions...
+
+被主题影响的样式应该放在一个独立的主题文件中，如`_candy-carousel.theme.scss`，并且文件名前必须有`\_`。这个文件应该包含负责应用组件主题的`@mixin`方法
+
+> Styles that are affected by the theme should be placed in a separated theming file as `_candy-carousel-theme.scss` and the file should have a _ before the name. This file should contain the `@mixin` function responsible for applying the theme to the component.
 
 ## 使用调色板中的颜色
 
 > Using colors from a palette
 
-你可以通过@angular/material/theming来使用主题方法和Material调色板变量。你也可以使用mat-color方法来获得一个特定的底板中的颜色，如下：
+你可以使用`@angular/material/theming`中的主题方法和Material调色板变量。你也可以使用`mat-color`方法来获得一个特定的调色板中的颜色，如下：
 
-> You can consume the theming functions and Material palette variables from @angular/material/theming. You can use the mat-color function to extract a specific color from a palette. For example:
+> You can consume the theming functions and Material palette variables from `@angular/material/theming`. You can use the `mat-color` function to extract a specific color from a palette. For example:
 
-```typescript
+```scss
 // Import theming functions
 @import '~@angular/material/theming';
 // Import your custom theme
@@ -99,5 +104,7 @@ background-color: mat-color($candy-app-primary);
 border-color: mat-color($candy-app-accent, A400);
 }
 ```
+
+*于2017年11月14日修改第二版，调整一些翻译的逻辑。*
 
 *翻译部分版权归YahaCode团队所有。仅供学习研究之用，任何组织或个人不得私自以此用于任何形式的商业目的*
