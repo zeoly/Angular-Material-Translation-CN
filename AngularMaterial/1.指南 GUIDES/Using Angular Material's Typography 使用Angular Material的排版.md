@@ -1,10 +1,14 @@
+# 使用Angular Material排版
+
+[TOC]
+
 ## 什么是排版
 
 > What is typography?
 
 排版是一种排列方式，可以让文字易读易懂，显示美观。Angular Material的排版是基于[Material Design Spec]( https://material.io/guidelines/style/typography.html)的规范分成了不同的排版层级。每一个层级都包含了`font-size`,`line-height`和`font-weight`。层级如下：
 
-> Typography is a way of arranging type to make text legible, readable, and appealing when displayed. Angular Material's typography is based on the guidelines from the [Material Design Spec]( https://material.io/guidelines/style/typography.html) and is arranged into typography levels. Each level has a font-size, line-height and font-weight. The available levels are:
+> Typography is a way of arranging type to make text legible, readable, and appealing when displayed. Angular Material's typography is based on the guidelines from the [Material Design Spec]( https://material.io/guidelines/style/typography.html) and is arranged into typography levels. Each level has a `font-size`, `line-height` and `font-weight`. The available levels are:
 
 * `display-4`, `display-3`, `display-2`和`display-1`,大的一次性的头部, 通常在页面顶部 (e.g. a hero header).
 * `headline` - 对应`<h1>`标签的段落标题。
@@ -43,7 +47,7 @@
 
 Angular Material默认不应用全局CSS。为了更广泛的使用库的排版样式，可以利用`mat-typography` CSS类。此类会将样式应用到所有继承的原生元素中。
 
-> By default, Angular Material doesn't apply any global CSS. To apply the library's typographic styles more broadly, you can take advantage of the mat-typography CSS class. This class will style all descendant native elements.
+> By default, Angular Material doesn't apply any global CSS. To apply the library's typographic styles more broadly, you can take advantage of the `mat-typography` CSS class. This class will style all descendant native elements.
 
 ```html
 <!-- By default, Angular Material applies no global styles to native elements. -->
@@ -61,9 +65,9 @@ Angular Material默认不应用全局CSS。为了更广泛的使用库的排版�
 
 定制排版是一个Angular Material 基于SASS主题化的扩展。类似于创建自定义主题，你可以创建一个定制的**排版设置**。
 
-> Typography customization is an extension of Angular Material's SASS-based theming. Similar to creating a custom theme, you can create a custom typography configuration.
+> Typography customization is an extension of Angular Material's SASS-based theming. Similar to creating a custom theme, you can create a custom **typography configuration**.
 
-```typescript
+```scss
 @import '~@angular/material/theming';
 
 // Define a custom typography config that overrides the font-family as well as the
@@ -75,16 +79,17 @@ $custom-typography: mat-typography-config(
 );
 ```
 
-正如上面例子展示的，通过使用`mat-typography-config`功能创建了一个排版设置，其中设置了字体和前面描述的排版层级。每个由`mat-typography-level`定义的排版层级，都需要`font-size`, `line-height`, 和`font-weight`。
+正如上面例子展示的，通过使用`mat-typography-config`功能创建了一个排版设置，其中设置了字体和前面描述的排版层级。每个由`mat-typography-level`定义的排版层级，都需要`font-size`, `line-height`, 和`font-weight`。注意`font-family`必须要引用。
 
-> As the above example demonstrates, a typography configuration is created by using the mat-typography-config function, which is given both the font-family and the set of typographic levels described earlier. Each typographic level is defined by the mat-typography-level function, which requires a font-size, line-height, and font-weight.
+> As the above example demonstrates, a typography configuration is created by using the `mat-typography-config` function, which is given both the font-family and the set of typographic levels described earlier. Each typographic level is defined by the `mat-typography-level` function, which requires a `font-size`, `line-height`, and `font-weight`. Note that the `font-family` has to be in quotes.
+
 
 一旦定制的排版定义创建完成，就可以通过不同的SASS mixins来生成样式。
 
 > Once the custom typography definition is created, it can be consumed to generate styles via different SASS mixins.
 
 
-```typescript
+```scss
 // Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
 @include mat-base-typography($custom-typography);
 
@@ -99,7 +104,7 @@ $custom-typography: mat-typography-config(
 
 > If you're using Material's theming, you can also pass in your typography config to the `mat-core` mixin:
 
-```typescript
+```scss
 // Override the typography in the core CSS.
 @include mat-core($custom-typography);
 ```
@@ -123,7 +128,7 @@ Angular Material 引入了排版工具mixins和函数方法，这样你可以自
 * `mat-font-weight($config, $level)` - 获取基于提供的config与level参数的`font-weight`
 * `mat-typography-level-to-styles($config, $level)` - 接受配置对象和排版层级的`mixin`，输出简单的CSS `font`声明。
 
-```typescript
+```scss
 @import '~@angular/material/theming';
 
 // Create a config with the default typography levels.
@@ -140,4 +145,7 @@ $config: mat-typography-config();
   @include mat-typography-level-to-styles($config, title);
 }
 ```
-a
+
+*修改于2017年11月15日，新增加Note that the font-family has to be in quotes*
+
+*翻译部分版权归YahaCode团队所有。仅供学习研究之用，任何组织或个人不得私自以此用于任何形式的商业目的*
