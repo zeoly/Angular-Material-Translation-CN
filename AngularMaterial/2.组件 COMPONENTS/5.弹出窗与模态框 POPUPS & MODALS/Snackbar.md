@@ -244,6 +244,6 @@ afterDismissed|获取当snack bar撤回完成时的observable。|Gets an observa
 afterOpened|获取当snack bar打开并出现时的observable。|Gets an observable that is notified when the snack bar has opened and appeared.|Observable<void>
 closeWithAction|标记snack bar操作已点击。|Marks the snackbar action clicked.|
 dismiss|撤回当前snack bar。|Dismisses the snack bar.|
-onAction|获取当snack bar操作被调用时的observable。|Gets an observable that is notified when the snack bar action is called.|
+onAction|获取当snack bar操作被调用时的observable。|Gets an observable that is notified when the snack bar action is called.|Observable<void>
 
 *翻译部分版权归YahaCode团队所有。仅供学习研究之用，任何组织或个人不得私自以此用于任何形式的商业目的*
