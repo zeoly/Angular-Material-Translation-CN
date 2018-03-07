@@ -60,17 +60,13 @@
 
 > A header and footer can be added to an `mat-grid-tile` using the `mat-grid-tile-header` and `mat-grid-tile-footer` elements respectively.
 
-## 可接入性
+## 无障碍
 
 > Accessibility
 
-默认grid-list使用纯装饰风格，因此不设置角色，ARIA属性或快捷键。等同于页面上有个`
+默认grid-list使用纯装饰风格，因此不设置角色，ARIA属性或快捷键。等同于页面上有个`<div>`元素的序列。任何在grid-list中的交互内容应当基于应用的特定工作流来设置合适的无障碍方式。
 
-`元素的序列。任何在grid-list中的交互内容应当基于应用的特定工作流来设置合适的可接入性。
-
-> By default, the grid-list assumes that it will be used in a purely decorative fashion and thus sets no roles, ARIA attributes, or keyboard shortcuts. This is equivalent to having a sequence of `
-
-` elements on the page. Any interactive content within the grid-list should be given an appropriate accessibility treatment based on the specific workflow of your application.
+> By default, the grid-list assumes that it will be used in a purely decorative fashion and thus sets no roles, ARIA attributes, or keyboard shortcuts. This is equivalent to having a sequence of `<div>` elements on the page. Any interactive content within the grid-list should be given an appropriate accessibility treatment based on the specific workflow of your application.
 
 如果grid-list用于呈现非交互内容，则grid-list元素需指定`role="list"`，每个网格也需要指定`role="listitem"`。
 
@@ -102,12 +98,9 @@ Exported as: `matGridList`
 
 属性名|描述|Description
 -|-|-
-@Input()
-cols: any|网格列表的列数。|Amount of columns in the grid list.
-@Input()
-gutterSize: any|网格列表的间隔大小，单位像素。|Size of the grid list's gutter in pixels.
-@Input()
-rowHeight: string \| number|设置行高。|Set internal representation of row height from the user-provided value.
+@Input()<br>cols: any|网格列表的列数。|Amount of columns in the grid list.
+@Input()<br>gutterSize: any|网格列表的间隔大小，单位像素。|Size of the grid list's gutter in pixels.
+@Input()<br>rowHeight: string \| number|设置行高。|Set internal representation of row height from the user-provided value.
 
 ### MatGridTile
 
@@ -121,10 +114,8 @@ Exported as: `matGridTile`
 
 属性名|描述|Description
 -|-|-
-@Input()
-colspan: number|网格占据的列数。|Amount of columns that the grid tile takes up.
-@Input()
-rowspan: number|网格占据的行数。|Amount of rows that the grid tile takes up.
+@Input()<br>colspan: number|网格占据的列数。|Amount of columns that the grid tile takes up.
+@Input()<br>rowspan: number|网格占据的行数。|Amount of rows that the grid tile takes up.
 
 ### MatGridTileText
 
