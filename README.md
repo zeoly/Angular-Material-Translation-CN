@@ -35,3 +35,11 @@ completed list:
 * [表格 Table](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Table%20%E8%A1%A8%E6%A0%BC.md)
 * [排序表头 Sort header](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Sort%20header%20%E6%8E%92%E5%BA%8F%E8%A1%A8%E5%A4%B4.md)
 * [分页器 Paginator](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/AngularMaterial/2.%E7%BB%84%E4%BB%B6%20COMPONENTS/6.%E6%95%B0%E6%8D%AE%E8%A1%A8%20DATA%20TABLE/Paginator%20%E5%88%86%E9%A1%B5%E5%99%A8.md)
+
+# Spring Cloud
+
+- [服务注册与发现](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/SpringCloud/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0.md)
+- [中心化配置](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/SpringCloud/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%85%8D%E7%BD%AE.md)
+- [路由与过滤](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/SpringCloud/%E8%B7%AF%E7%94%B1%E4%B8%8E%E8%BF%87%E6%BB%A4.md)
+- [断路器](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/SpringCloud/%E6%96%AD%E8%B7%AF%E5%99%A8.md)
+- [使用Ribbon和Spring Cloud实现客户端负载均衡](https://github.com/zeoly/Angular-Material-Translation-CN/blob/master/SpringCloud/%E4%BD%BF%E7%94%A8Ribbon%E5%92%8CSpring%20Cloud%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.md)
