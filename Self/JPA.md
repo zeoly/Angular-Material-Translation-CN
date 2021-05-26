@@ -50,6 +50,31 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 ## 模型定义
 
+### 主键定义
+
+1. 主键需要使用`@Id`注解声明，并且需要使用`@GeneratedValue`声明主键生成方式，生成方式有4中策略：
+   1. **AUTO**策略，为自动选择主键生成策略。默认为`@GeneratedValue(strategy = GenerationType.AUTO)`，
+   
+   2. **IDENTITY**策略，使用数据库自增序列，注意oracle并不支持此种主键。
+     
+     ```java
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
+     ```
+     
+   3. **SEQUENCE**策略，需要显式声明序列。通常序列自增为1，需要指定`allocationSize=1`（默认为50，与数据库序列可能不对应）。
+   
+      ```java
+      @Id
+      @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="my_seq")  
+      @SequenceGenerator(name="my_seq", sequenceName="seq_customer", allocationSize = 1)
+      private Long id;
+      ```
+
+  4. **TABLE**策略，
+      
+
 ### 基类定义
 
 通常业务模型有基类，对应表中有公共的字段，需要通过继承方式定义自己的业务类。使用`@MappedSuperclass`注解：
@@ -94,6 +119,8 @@ public class Customer {
 ## 操作接口
 
 ### 命名操作
+
+### Query
 
 ### 批量操作
 
