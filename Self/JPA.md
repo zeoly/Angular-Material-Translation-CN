@@ -53,7 +53,13 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 ### 主键定义
 
 1. 主键需要使用`@Id`注解声明，并且需要使用`@GeneratedValue`声明主键生成方式，生成方式有4中策略：
-   1. **AUTO**策略，为自动选择主键生成策略。默认为`@GeneratedValue(strategy = GenerationType.AUTO)`，
+   1. **AUTO**策略，为自动选择主键生成策略，是默认的生成策略。因为可控性较差，一般不建议采用：
+   
+     ```java
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     private Long id;
+     ```
    
    2. **IDENTITY**策略，使用数据库自增序列，注意oracle并不支持此种主键。
      
@@ -72,8 +78,29 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
       private Long id;
       ```
 
-  4. **TABLE**策略，
-      
+   4. **TABLE**策略，
+
+2. 分布式系统常用主键也有选择UUID的，需要使用自定义主键生成策略。hibernate的uuid生成器：
+
+```java
+public  DefaultIdentifierGeneratorFactory() {
+  register( "uuid2", UUIDGenerator.class);
+  register( "guid", GUIDGenerator.class);
+  register( "uuid", UUIDHexGenerator.class);
+  register( "uuid.hex", UUIDHexGenerator.class);
+  register( "hilo", TableHiLoGenerator.class);
+  register( "assigned", Assigned.class);
+  register( "identity", IdentityGenerator.class);
+  register( "select", SelectGenerator.class);
+  register( "sequence", SequenceGenerator.class);
+  register( "seqhilo", SequenceHiLoGenerator.class);
+  register( "increment", IncrementGenerator.class);
+  register( "foreign", ForeignGenerator.class);
+  register( "sequence-identity", SequenceIdentityGenerator.class);
+  register( "enhanced-sequence", SequenceStyleGenerator.class);
+  register( "enhanced-table", TableGenerator.class);
+}
+```
 
 ### 基类定义
 
