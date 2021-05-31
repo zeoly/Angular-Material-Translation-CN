@@ -78,9 +78,24 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
       private Long id;
       ```
 
-   4. **TABLE**策略，
+   4. **TABLE**策略，通过数据库表的方式存储并维护主键，一般不常使用。
 
-2. 分布式系统常用主键也有选择UUID的，需要使用自定义主键生成策略。hibernate的uuid生成器：
+      ```java
+      ```
+
+2. 分布式系统常用主键也有选择UUID的，需要使用自定义主键生成策略。可以声明hibernate的uuid生成器，并在主键上使用此生成器：
+
+```java
+@GenericGenerator(name = "my_uuid", strategy = "uuid")
+public  class Customer {
+
+  @Id
+  @GeneratedValue(generator = "my_uuid")
+  private String id;
+}
+```
+
+> hibernate自带的主键生成器如下：
 
 ```java
 public  DefaultIdentifierGeneratorFactory() {
