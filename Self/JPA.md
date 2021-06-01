@@ -162,6 +162,69 @@ public class Customer {
 
 ### 命名操作
 
+命名操作是jpa非常大的一个优势，仅需按照规范定义接口，就可以直接操作数据库，例如：
+
+```java
+public class UserRepository extends JpaRepository<User, Long> {
+
+  User findByName(String name);
+}
+```
+
+上述接口即定义了一个根据姓名查询用户的方法，即等于：
+
+```sql
+select * from user where name = ?
+```
+
+具体命名规范如下：
+
+关键词|例子|等效sql
+-|-|-
+Distinct|findDistinctByLastnameAndFirstname|select distinct ... where x.lastname = ?1 and x.firstname = ?2
+And|findByLastnameAndFirstname|... where x.lastname = ?1 and x.firstname = ?2
+Or|findByLastnameOrFirstname|... where x.lastname = ?1 or x.firstname = ?2
+Is, Equals|findByFirstname,findByFirstnameIs,findByFirstnameEquals|... where x.firstname = ?1
+Between|findByStartDateBetween|... where x.startDate between ?1 and ?2
+LessThan|findByAgeLessThan|... where x.age < ?1
+LessThanEqual|findByAgeLessThanEqual|... where x.age <= ?1
+GreaterThan|findByAgeGreaterThan|... where x.age > ?1
+GreaterThanEqual|findByAgeGreaterThanEqual|... where x.age >= ?1
+After|findByStartDateAfter|... where x.startDate > ?1
+Before|findByStartDateBefore|... where x.startDate < ?1
+IsNull, Null|findByAge(Is)Null|... where x.age is null
+IsNotNull, NotNull|findByAge(Is)NotNull|... where x.age not null
+Like|findByFirstnameLike|... where x.firstname like ?1
+NotLike|findByFirstnameNotLike|... where x.firstname not like ?1
+StartingWith|findByFirstnameStartingWith|... where x.firstname like ?1 (参数结尾绑定%)
+EndingWith|findByFirstnameEndingWith|... where x.firstname like ?1 (参数开头绑定%)
+Containing|findByFirstnameContaining|... where x.firstname like ?1 (参数两端绑定%)
+OrderBy|findByAgeOrderByLastnameDesc|... where x.age = ?1 order by x.lastname desc
+Not|findByLastnameNot|... where x.lastname <> ?1
+In|findByAgeIn(Collection<Age> ages)|... where x.age in ?1
+NotIn|findByAgeNotIn(Collection<Age> ages)|... where x.age not in ?1
+True|findByActiveTrue()|... where x.active = true
+False|findByActiveFalse()|... where x.active = false
+IgnoreCase|findByFirstnameIgnoreCase|... where UPPER(x.firstname) = UPPER(?1)
+
+### 修改操作
+
+修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
+
+```java
+User user = userRepository.findById(id);
+user.setName(newName);
+userRepository.save(user);
+```
+
+其实这是种很好的思路，脱离开sql的禁锢想法，聚焦在对象上。但在某些场景下，可能也会有局限性，所以也有其他修改数据的方式：
+
+```java
+@Modifying
+@Query("update User u set u.firstname = ?1 where u.lastname = ?2")
+int setFixedFirstnameFor(String firstname, String lastname);
+```
+
 ### Query
 
 ### 批量操作
