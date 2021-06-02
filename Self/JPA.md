@@ -225,6 +225,34 @@ userRepository.save(user);
 int setFixedFirstnameFor(String firstname, String lastname);
 ```
 
+通过使用`@Query`注解，手写jpql的方式来实现更新操作，类似还可以使用原生sql来实现：
+
+```java
+@Modifying
+@Query("update user_table u set u.first_name = ?1 where u.last_name = ?2", nativeQuery = true)
+int setFixedFirstnameFor(String firstname, String lastname);
+```
+
+### 分页查询
+
+分页查询也是常见业务场景，在命名查询中可以使用`Pageable`对象来封装：
+
+```java
+Page<User> findByLastname(String lastname, Pageable pageable);
+```
+
+如果只关注列表数据本身，也可以按如下定义接口：
+
+```java
+List<User> findByLastname(String lastname, Pageable pageable);
+```
+
+使用也比较简单，直接声明分页关键参数即可：
+
+```java
+Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20));
+```
+
 ### Query
 
 ### 批量操作
