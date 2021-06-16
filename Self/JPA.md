@@ -179,9 +179,21 @@ select * from user where name = ?
 
 具体命名规范如下：
 
+#### 查询主体
+
+关键词|说明
+-|-
+find...By, read...By, get...By, query...By, search...By, stream...By|返回集合
+exists...By|返回布尔类型`boolean`
+count...By|返回数字类型
+delete..By, remove...By|删除操作可以返回空`void`，也可以返回删除数量
+...First<number>..., ...Top<number>...|限制结果集数量
+...Distinct...|返回唯一数据
+
+#### 查询条件
+
 关键词|例子|等效sql
 -|-|-
-Distinct|findDistinctByLastnameAndFirstname|select distinct ... where x.lastname = ?1 and x.firstname = ?2
 And|findByLastnameAndFirstname|... where x.lastname = ?1 and x.firstname = ?2
 Or|findByLastnameOrFirstname|... where x.lastname = ?1 or x.firstname = ?2
 Is, Equals|findByFirstname,findByFirstnameIs,findByFirstnameEquals|... where x.firstname = ?1
