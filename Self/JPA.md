@@ -219,6 +219,14 @@ True|findByActiveTrue()|... where x.active = true
 False|findByActiveFalse()|... where x.active = false
 IgnoreCase|findByFirstnameIgnoreCase|... where UPPER(x.firstname) = UPPER(?1)
 
+#### 查询修饰
+
+关键词|说明
+-|-
+IgnoreCase, IgnoringCase|忽略大小写
+AllIgnoreCase, AllIgnoringCase|全局忽略大小写
+OrderBy...|排序
+
 ### 修改操作
 
 修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
