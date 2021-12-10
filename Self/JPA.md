@@ -227,6 +227,22 @@ IgnoreCase, IgnoringCase|忽略大小写
 AllIgnoreCase, AllIgnoringCase|全局忽略大小写
 OrderBy...|排序
 
+### Query
+
+第二种操作数据的方法为写`@Query`注解，注解中可以使用hql，也可以使用原生的sql：
+
+```java
+@Query("SELECT n FROM Note n WHERE n.featured = true")
+List<Note> findByActiveNotes();
+```
+
+原生方式需要指定`nativeQuery`为`true`：
+
+```java
+@Query(value = "SELECT * FROM Notes n WHERE n.featured = 1", nativeQuery = true)
+List<Note> findByFeaturedNotesNative();
+```
+
 ### 修改操作
 
 修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
@@ -272,8 +288,6 @@ List<User> findByLastname(String lastname, Pageable pageable);
 ```java
 Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20));
 ```
-
-### Query
 
 ### 批量操作
 
