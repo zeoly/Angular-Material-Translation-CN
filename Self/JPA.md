@@ -300,5 +300,33 @@ Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20)
    }
    ```
 
-   
+## 常用项
 
+### sql打印
+
+因为jpa为自动生成sql，在分析问题时可能需要看具体的sql。
+
+```properties
+# 开启jpa sql日志，为单行形式
+spring.jpa.show-sql=true
+
+# 格式化日志输出，便于阅读
+spring.jpa.properties.hibernate.format_sql=true
+```
+
+如上配置后，只有sql，如果还需要查看每次sql执行时的参数，需要将对应日志级别调低，将trace日志输出。
+
+```properties
+# 修改日志等级
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
+```
+
+##  其他常用注解
+
+### @DynamicInsert
+
+当对象属性非空，才会生成在sql中，一般用于使用数据库default值
+
+### @DynamicUpdate
+
+当对象属性值有改变时，才会生成在sql中
