@@ -54,7 +54,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 1. 主键需要使用`@Id`注解声明，并且需要使用`@GeneratedValue`声明主键生成方式，生成方式有4中策略：
   
-   1. **AUTO**策略，为自动选择主键生成策略，是默认的生成策略。因为可控性较差，一般不建议采用：
+   1. **AUTO**策略，为自动选择主键生成策略，是默认的生成策略。如果想使用自定义的主键生成策略，也是使用此策列；因为可控性较差，一般不建议采用：
      
       ```java
       @Id
@@ -435,7 +435,35 @@ public class Role {
 
 ### 加载策略
 
-在四种对应关系中，参数`fetch`对应的默认值有不同，`@ManyToOne`和`@OneToOne`的默认值是`FetchType.EAGER`，而`@OneToMany`和`@ManyToMany`的默认值是`FetchType.LAZY`
+在四种对应关系中，参数`fetch`对应的默认值有不同，`@ManyToOne`和`@OneToOne`的默认值是`FetchType.EAGER`，而`@OneToMany`和`@ManyToMany`的默认值是`FetchType.LAZY`。
+
+但需要注意如下情况：
+
+1. 只有映射的是主键时才起效；
+
+2. 在springboot中，配置项`spring.jpa.open-in-view`默认值是`true`，表示在请求进入到完成的过程中，保持了jpa的会话，从而使`LAZY`策略在整个使用过程中生效；但存在的弊端是被应用的请求线程锁住数据库线程，从而时数据库会话保持的时间变长；目前经验是将此配置项值设置为`false`，如果需要使用`LAZY`策略的特性，则需要手动开启事务，并在事务结束前获取对应数据：
+
+   ```java
+   @Transactional
+   public void doSomething() {
+       Person p = getPerson();
+       List<Role> roles = p.getRoleList();
+   }
+   ```
+
+   但如果仅是返回数据的场景，例如期望上述的`Person`对象返回包含`Role`列表数据，通过如下方式并**不能**触发`LAZY`策略，需要对数据产生实际的使用时才会触发：
+
+   ```java
+   @Transactional
+   public Person getPerson() {
+       Person p = getPerson();
+       List<Role> roles = p.getRoleList(); // 仅使用此无法触发
+       int size = roles.size();  // 可以触发
+       return p;
+   }
+   ```
+
+   
 
 ## 常用项
 
