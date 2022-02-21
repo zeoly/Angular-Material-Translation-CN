@@ -271,6 +271,31 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
 
 ```
 
+### Querydsl
+
+也是一个适合复杂查询的备选方案，采用链式API，与**Specifications**类似，但可读性高一些。使用方法同样简单，普通的使用方法也是继承一个接口即可：
+
+```java
+public interface CustomerRepository extends JpaRepository<Customer, Long>, QuerydslPredicateExecutor<Customer>
+```
+
+此接口中的方法也比较类似：
+
+```java
+Optional<T> findOne(Predicate predicate);
+Iterable<T> findAll(Predicate predicate);
+Iterable<T> findAll(Predicate predicate, Sort sort);
+Iterable<T> findAll(Predicate predicate, OrderSpecifier<?>... orders);
+Iterable<T> findAll(OrderSpecifier<?>... orders);
+Page<T> findAll(Predicate predicate, Pageable pageable);
+long count(Predicate predicate);
+boolean exists(Predicate predicate);
+```
+
+#### 依赖包
+
+如果要比较舒服的使用querydsl，还是要进行额外的jar包引入的：
+
 ### 修改操作
 
 修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
