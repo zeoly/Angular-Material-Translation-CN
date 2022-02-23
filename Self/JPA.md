@@ -296,6 +296,50 @@ boolean exists(Predicate predicate);
 
 如果要比较舒服的使用querydsl，还是要进行额外的jar包引入的：
 
+```xml
+<dependency> 
+    <groupId>com.querydsl</groupId> 
+    <artifactId>querydsl-apt</artifactId> 
+    <version>${version}</version>
+    </dependency>
+<dependency> 
+    <groupId>com.querydsl</groupId> 
+    <artifactId>querydsl-jpa</artifactId> 
+    <version>${version}</version> 
+</dependency>
+```
+
+并且为了编码方便，最好引入一个maven插件，来进行辅助类的自动生成：
+
+```xml
+<plugin>
+    <groupId>com.mysema.maven</groupId>
+    <artifactId>apt-maven-plugin</artifactId>
+    <version>1.1.3</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>process</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>target/generated-sources/java</outputDirectory>
+                <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+配置完成并执行maven编译后，在对应目录下，会生成Q开头的实体类文件。
+
+#### 使用
+
+```java
+User user = userRepository.findOne(QUser.name.eq("zhangsan"));
+```
+
+
+
 ### 修改操作
 
 修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
