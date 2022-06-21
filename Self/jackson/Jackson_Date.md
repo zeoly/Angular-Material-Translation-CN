@@ -463,7 +463,7 @@ public void whenDeserializingDateUsingCustomDeserializer_thenCorrect()
 }
 ```
 
-## 修复*InvalidDefinitionException*
+## 修复*InvalidDefinitionException*异常
 
 当创建*LocalDate*实例时，可能遇到如下异常：
 
