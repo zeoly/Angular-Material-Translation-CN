@@ -53,9 +53,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 ### 主键定义
 
 1. 主键需要使用`@Id`注解声明，并且需要使用`@GeneratedValue`声明主键生成方式，生成方式有4中策略：
-  
+   
    1. **AUTO**策略，为自动选择主键生成策略，是默认的生成策略。如果想使用自定义的主键生成策略，也是使用此策列；因为可控性较差，一般不建议采用：
-     
+      
       ```java
       @Id
       @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,7 +63,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
       ```
    
    2. **IDENTITY**策略，使用数据库自增序列，注意oracle并不支持此种主键。
-     
+      
       ```java
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,7 +71,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
       ```
    
    3. **SEQUENCE**策略，需要显式声明序列。通常序列自增为1，需要指定`allocationSize=1`（默认为50，与数据库序列可能不对应）。
-     
+      
       ```java
       @Id
       @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="my_seq")  
@@ -80,7 +80,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
       ```
    
    4. **TABLE**策略，通过数据库表的方式存储并维护主键，一般不常使用。
-     
+      
       ```java
       
       ```
@@ -338,8 +338,6 @@ boolean exists(Predicate predicate);
 User user = userRepository.findOne(QUser.name.eq("zhangsan"));
 ```
 
-
-
 ### 修改操作
 
 修改操作数据jpa的一个“劣势”，通常来说，一般是通过某些条件，将需要修改的对象查出，并修改对象后，再将对象进行存储，例如：
@@ -391,7 +389,7 @@ Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20)
 使用`JpaRepository`的`saveAll`方法可批量插入，但默认为单条提交，如果想实现真正批量提交，需要如下操作：
 
 1. 在`application.properties`文件中增加配置项：
-  
+   
    ```properties
    spring.jpa.properties.hibernate.jdbc.batch_size=500
    spring.jpa.properties.hibernate.jdbc.batch_versioned_data=true
@@ -408,7 +406,7 @@ Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20)
    然后可以通过日志看到单批次提交量。
 
 2. 需确定模型定义中主键的生成类型，如果为`identity`，则批量插入不会生效，原文为：[Hibernate disables insert batching at the JDBC level transparently if you use an identity identifier generator.](https://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html/ch15.html)。所以需要显式配置id生成策略，例如：
-  
+   
    ```java
    public class Customer {
    
@@ -448,7 +446,7 @@ Page<User> users = userRepository.findByLastname(lastName, PageRequest.of(1, 20)
 ```java
 @Entity
 public class Person {
-    
+
     @OneToOne
     private Address address;
 }
@@ -459,7 +457,7 @@ public class Person {
 ```java
 @Entity
 public class Person {
-    
+
     @OneToOne
     @JoinColumn(name = "address_code", referencedColumnName = "code")
     private Address address;
@@ -477,7 +475,7 @@ public class Person {
 ```java
 @Entity
 public class Person {
-    
+
     @ManyToMany
     @JoinTable(name = "t_relation", joinColumns = @JoinColumn(name = "person_code", referencedColumnName = "code"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
@@ -494,7 +492,7 @@ public class Person {
 ```java
 @Entity
 public class Role {
-    
+
     @ManyToMany(mappedBy = "roleList")
     private List<Person> personList;
 }
@@ -511,7 +509,7 @@ public class Role {
 1. 只有映射的是主键时才起效；
 
 2. 在springboot中，配置项`spring.jpa.open-in-view`默认值是`true`，表示在请求进入到完成的过程中，保持了jpa的会话，从而使`LAZY`策略在整个使用过程中生效；但存在的弊端是被应用的请求线程锁住数据库线程，从而时数据库会话保持的时间变长；目前经验是将此配置项值设置为`false`，如果需要使用`LAZY`策略的特性，则需要手动开启事务，并在事务结束前获取对应数据：
-
+   
    ```java
    @Transactional
    public void doSomething() {
@@ -519,9 +517,9 @@ public class Role {
        List<Role> roles = p.getRoleList();
    }
    ```
-
+   
    但如果仅是返回数据的场景，例如期望上述的`Person`对象返回包含`Role`列表数据，通过如下方式并**不能**触发`LAZY`策略，需要对数据产生实际的使用时才会触发：
-
+   
    ```java
    @Transactional
    public Person getPerson() {
@@ -532,7 +530,29 @@ public class Role {
    }
    ```
 
-   
+### 级联操作
+
+通过操作主对象，进而对关系映射对象的操作，为级联操作，可通过配置`cascade`参数来实现不同场景的需求：
+
+#### CascadeType.PERSIST
+
+当关联对象的并不在数据库存在时，此配置下，会对关联对象进行持久化操作；
+
+#### CascadeType.MERGE
+
+表示更新，即维护已存在的关联对象；
+
+#### CascadeType.REMOVE
+
+表示删除，即删除主对象时，会同步删除关联对象；
+
+#### CascadeType.REFRESH
+
+当刷新主对象时，同步刷新关联对象，即表示查询；
+
+#### CascadeType.DETACH
+
+表示脱离关系，即所有操作不关联对象；
 
 ## 常用项
 
