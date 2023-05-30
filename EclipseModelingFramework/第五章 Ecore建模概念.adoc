@@ -1,0 +1,38 @@
+= 第五章 Ecore建模概念
+:toc:
+:toc-title: 目录
+
+当我们创建一个核心模型，即是在定义一个模型实例的结构，无关乎此模型是直接创建，还是由Java、UML、XML创建。此过程也就是在定义组成模型实例、包含的数据、以及模型之间的关系的对象类型。例如前面章节提到的PrimerPO模型定义了购买订单的模型。在建模中定义这种模型为“元模型”。在某种意义上，元模型定义了一种使用模型实例来描述其他事物的语言。
+
+> When we create a core model—whether directly or from annotated Java, UML, or XML Schema—we are defining the structure for a series of instances of that model. That is, we are specifying the types of objects that make up instance models, the data they contain, and the relationships between them. For example, the PrimerPO model of the previous chapter defined the structure for models that represent purchase orders. Modelers use the term "metamodel" for this kind of model. In a sense, metamodels define a language that their instance models use to describe other things.
+
+如第二章提到，组成核心模型的元模型称为Ecore。即Ecore定义了核心模型的结构，核心模型定义了用来维护应用数据的模型结构，例如购买订单模型。因此Ecore是购买订单实例模型的元-元模型。
+
+> As we first discussed in Chapter 2, the metamodel for core models is called Ecore. That is, Ecore defines the structure of core models, which in turn define the structure of the models we use to maintain application data, such as purchase orders. Thus, Ecore is the meta-metamodel for our purchase order instance models.
+
+Ecore定义的大部分建模概念与面向对象相似。第二章提到，Ecore来源与MOF与UML中，并且设计上与Java实现对应。本质上如果你熟悉类以及类之间的关系，那么你对使用Ecore来定义核心模型也易于上手。
+
+> Most of the modeling concepts that Ecore defines should be quite familiar to avid modelers and object-oriented programmers alike. As we discussed in Chapter 2, Ecore has its roots in MOF and UML, and was designed to map cleanly to Java implementations. Essentially, if you're comfortable thinking about classes and the relationships between them, you shouldn't have too much trouble using Ecore to define core models.
+
+Ecore支持许多不直接包含在Java中的高级概念。例如核心模型支持包含关系、双向关系、以及枚举数据类型。你可能已经熟悉这些概念，或许已经多次实现这些概念。EMF的部分价值在于可以节省码畜的时间精力，直接生成正确高效的Java实现。
+
+> Ecore supports a number of higher-level concepts that are not directly included in Java. For example, core models can include containment, bidirectional relationships, and enumeration data types. You are likely familiar with these concepts and have probably implemented them yourself more than once. Part of EMF's value is its ability to generate correct and efficient Java implementations for these constructs, saving the programmer time and effort.
+
+Ecore本身也是一个核心模型。即Ecore本身作为自己的元模型，定义了自己。这表现了一些在概念与面向实现方面的挑战，但这并不是什么坏事。其他类似的模型作为元模型定义自己，或者其他非正式的过时方案，明显吸引力不足。此外我们认为Ecore与其他EMF模型一样，EMF生成器在创建与维护实现方面有一定优势。
+
+> Ecore is, itself, a core model. That is, Ecore acts as its own metamodel, so it is defined in terms of itself. This presents a few conceptual and implementation-related challenges, but it's generally considered a good thing. The other alternatives—defining yet another model to acts as its metamodel or "hand-waving" through an informal definition—are significantly less attractive. Moreover, we are able to treat Ecore much like any other EMF model and to reap the benefits of the EMF generator in creating and maintaining its implementation.
+
+
+[plantuml]
+....
+class A
+....
+
+[source,java]
+....
+class A {
+
+}
+....
+
+
