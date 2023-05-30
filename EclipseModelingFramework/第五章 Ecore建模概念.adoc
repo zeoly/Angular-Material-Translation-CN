@@ -22,6 +22,25 @@ Ecore本身也是一个核心模型。即Ecore本身作为自己的元模型，�
 
 > Ecore is, itself, a core model. That is, Ecore acts as its own metamodel, so it is defined in terms of itself. This presents a few conceptual and implementation-related challenges, but it's generally considered a good thing. The other alternatives—defining yet another model to acts as its metamodel or "hand-waving" through an informal definition—are significantly less attractive. Moreover, we are able to treat Ecore much like any other EMF model and to reap the benefits of the EMF generator in creating and maintaining its implementation.
 
+我们将在此章节中详细讨论Ecore，使你在定义核心模型时能得心应手。把Ecore作为自身元模型的方式有一个明显需要讨论的方面，即某些模型元素是用于描述其他模型元素的。因此我们从一个简单的模型子集开始入手。在全面了解这个子集后，就可以此基础上对Ecore进行完整详细的学习。
+
+> In this chapter, we will examine Ecore in detail, with the aim of enabling you to use it effectively in defining your own core models. The use of Ecore as its own metamodel inevitably influences such a discussion, as aspects of certain model elements will be described in terms of other model elements. Thus, we begin the discussion with a simplified subset of the model that you may recognize from Chapter 2. Once we understand that subset in its entirety, we can build on that understanding a complete description of the details of Ecore.
+
+== 5.1 核心模型使用 Core Model Uses
+
+在深入了解Ecore之前，需要先了解EMF如何使用核心模型。跟其他EMF模型一样，核心模型可以用编码方式构建，或以多种形式加载。常见有两种不同使用场景：在应用开发过程中，与在应用运行中。
+
+> Before delving into the discussion of Ecore, a word about how EMF uses core models would be appropriate. Like any other model in EMF, a core model can be built programmatically or loaded from a serialized form. It is generally used in two different contexts: during application development and when the application is running.
+
+> During development, the core model is the primary source of information for the EMF generator, when it produces code to be used in the application. As we discussed in Chapter 2, this code includes the interfaces and classes that realize the modeled types, a factory for instantiating them, and a package that efficiently builds the core model at runtime and provides convenient access to its members. The EMF generator reads core models from their XMI serializations.
+
+> At runtime, the core model is used by generic framework code to determine correct behavior for that particular model, and is likewise available to user-written code that needs to dynamically discover particulars of the model. The framework code that depends upon the core model handles not only such peripheral functionality as serialization, but also includes some of the basic Ecore functionality expressed in the EObject API. In fact, in the absence of generated code, the behavior of all dynamic model objects is completely dependent on a core model. At runtime, the core model can either be built programmatically or loaded from a serialization; however, the former, more efficient approach is always taken for generated models.
+
+> In discussing the details of Ecore, we will see that most of the concepts that it defines are equally applicable in both the code generation and runtime contexts. Some, however, have special significance in one context or the other, which we will point out as appropriate.
+
+== 5.2 Ecore内核 The Ecore Kernel
+
+> In Section 2.3.1, we presented an illustration of a simplified subset of the Ecore model. We describe this, with minor additions, as the Ecore kernel, and we will use it to "bootstrap"[1] the discussion of the full model. This model is illustrated in Figure 5.1.
 
 [plantuml]
 ....
