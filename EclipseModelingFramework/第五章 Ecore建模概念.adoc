@@ -32,6 +32,8 @@ Ecore本身也是一个核心模型。即Ecore本身作为自己的元模型，�
 
 > Before delving into the discussion of Ecore, a word about how EMF uses core models would be appropriate. Like any other model in EMF, a core model can be built programmatically or loaded from a serialized form. It is generally used in two different contexts: during application development and when the application is running.
 
+核心模型在开发中是EMF生成器的信息主要来源，
+
 > During development, the core model is the primary source of information for the EMF generator, when it produces code to be used in the application. As we discussed in Chapter 2, this code includes the interfaces and classes that realize the modeled types, a factory for instantiating them, and a package that efficiently builds the core model at runtime and provides convenient access to its members. The EMF generator reads core models from their XMI serializations.
 
 > At runtime, the core model is used by generic framework code to determine correct behavior for that particular model, and is likewise available to user-written code that needs to dynamically discover particulars of the model. The framework code that depends upon the core model handles not only such peripheral functionality as serialization, but also includes some of the basic Ecore functionality expressed in the EObject API. In fact, in the absence of generated code, the behavior of all dynamic model objects is completely dependent on a core model. At runtime, the core model can either be built programmatically or loaded from a serialization; however, the former, more efficient approach is always taken for generated models.
@@ -40,7 +42,27 @@ Ecore本身也是一个核心模型。即Ecore本身作为自己的元模型，�
 
 == 5.2 Ecore内核 The Ecore Kernel
 
+在2.3.1章节中，我们展示了Ecore模型的一个简化子集，我们称之为Ecore内核，并基于此来展开关于完整模型的讨论。核心模型如图5.1所示。
+
 > In Section 2.3.1, we presented an illustration of a simplified subset of the Ecore model. We describe this, with minor additions, as the Ecore kernel, and we will use it to "bootstrap"[1] the discussion of the full model. This model is illustrated in Figure 5.1.
+
+image::Figure5.1.png[]
+
+注意此处的内核只是为了讨论目的，关于这些元素是如何定义以及如何在Ecore实现中创建，也没有什么特别的。
+
+> Note that we have created this kernel only for the purposes of this discussion. There is nothing particularly special about how these elements are defined or created in the implementation of Ecore.
+
+回顾第二章，本质上核心模型定义了4个对象类型，即4个类：
+
+> Essentially, reviewing from Chapter 2, this model defines four types of objects—that is, four classes:
+
+
+
+> . *EClass* models classes themselves. Classes are identified by name and can contain a number of attributes and references. To support inheritance, a class can refer to a number of other classes as its supertypes.
+. *EAttribute* models attributes, the components of an object's data. They are identified by name, and they have a type.
+. *EDataType* models the types of attributes, representing primitive and object data types that are defined in Java, but not in EMF. Data types are also identified by name.
+. *EReference* is used in modeling associations between classes; it models one end of such an association. Like attributes, references are identified by name and have a type. However, this type must be the *EClass* at the other end of the association. If the association is navigable in the opposite direction, there will be another corresponding reference. A reference specifies lower and upper bounds on its multiplicity. Finally, a reference can be used to represent a stronger type of association, called containment; the reference specifies whether to enforce containment semantics.
+
 
 [plantuml]
 ....
