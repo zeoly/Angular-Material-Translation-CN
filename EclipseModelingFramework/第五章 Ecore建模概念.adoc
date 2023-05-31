@@ -56,7 +56,10 @@ image::Figure5.1.png[]
 
 > Essentially, reviewing from Chapter 2, this model defines four types of objects—that is, four classes:
 
-
+ . *EClass* 表示类本身。一个类由名称区分，并且包含若干个属性attributes和引用references。为了支持继承关系，一个类可以是多个类的超类型
+ . *EAttribute* 表示组成一个对象数据的属性。同样由名称区分，并对应一个数据类型。
+ . *EDataType* 表示属性的类型，即Java中（非EMF）定义的原始数据类型。数据类型同样由名称区分。
+ . *EReference* 表示类与类之间的关系，但只表示此关系中的单端。与属性一样，引用由名称区分，并对应一个类型。此类型的对应的另一端需为 *EClass*。如果此关系反向也成立，则另一个类中也有对应的引用关系。引用也指定了其多重性的上下界。引用也用于表示一种关系的强类型，即包含；引用也指定了是否强制包含的语义。
 
 > . *EClass* models classes themselves. Classes are identified by name and can contain a number of attributes and references. To support inheritance, a class can refer to a number of other classes as its supertypes.
 . *EAttribute* models attributes, the components of an object's data. They are identified by name, and they have a type.
