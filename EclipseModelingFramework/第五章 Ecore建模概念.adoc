@@ -66,17 +66,22 @@ image::Figure5.1.png[]
 . *EDataType* models the types of attributes, representing primitive and object data types that are defined in Java, but not in EMF. Data types are also identified by name.
 . *EReference* is used in modeling associations between classes; it models one end of such an association. Like attributes, references are identified by name and have a type. However, this type must be the *EClass* at the other end of the association. If the association is navigable in the opposite direction, there will be another corresponding reference. A reference specifies lower and upper bounds on its multiplicity. Finally, a reference can be used to represent a stronger type of association, called containment; the reference specifies whether to enforce containment semantics.
 
+注意此模型是一个整体，它可以自己引用自己。当我们描述EClass时，用EAttribute来描述属性，用EReference描述引用，甚至间接引用一个EReference的属性。但此概念与常规建模和面向对象都很相似，当我们理解了Ecore的这个子集后，就可以继续学习模型的其他部分了。
 
-[plantuml]
-....
-class A
-....
+> Notice that this model really needs to be understood as a single unit, as it is highly self-referential.In describing EClass, we described its attributes, which are modeled using EAttribute, and its references, modeled with EReference, even referring indirectly to the attributes of EReference. Fortunately, the concepts expressed in this model should be quite familiar to modelers and objectoriented programmers, so this probably wasn't too troublesome. Now, with this subset of Ecore in hand, we can tackle the rest of the model.
 
-[source,java]
-....
-class A {
+== 5.3 结构特性 Structural Features
 
-}
-....
+回顾Ecore内核，会发现 *EAttribute* 和 *EReference* 有许多相似之处：都具有名称和类型，都定义了所属 *EClass* 一个实例的状态。这两个类其实还有许多共同点，例如之前我们在 *EReference* 中展示的 *lowerBound* 和 *upperBound* 属性。Ecore提供了一个基类来封装这些相似点，即 *EStructuralFeature* 。其关系如图5.2所示。
+
+> Looking back at the Ecore kernel, you may notice a number of similarities between *EAttribute* and *EReference*: they both have names and types, and taken together, they define the state of an instance of the *EClass* that contains them. There are many more common aspects of these two classes, including, in fact, the *lowerBound* and *upperBound* attributes, which we previously showed only for *EReference*. To capture these similarities, Ecore includes a common base for these two classes, called *EStructuralFeature*. The situation is illustrated in Figure 5.2.
+
+image::Figure5.2.png[]
+
+> As the figure shows, *EStructuralFeature* is, itself, derived from other supertypes. *ENamedElement* defines just one attribute, the *name* that we have seen in every class discussed so far. Most classes in Ecore extend this class in order to inherit this attribute.
 
 
+> Another common aspect of *EAttribute* and *EReference* that we observed is the notion of a type. Because this is also shared with other classes in Ecore, as we will soon see, the *eType* attribute is factored out into *ETypedElement*, the immediate supertype of *EStructuralFeature*. Notice that the type of *eType* is *EClassifier*, a common base class of *EDataType* and *EClass*, which were the required types for *eAttrbituteType* and *eFeatureType*, respectively.
+
+
+> *EStructuralFeature* includes a number of attributes used to characterize both attributes and references. Five boolean attributes define how the structural feature stores and accesses values:
