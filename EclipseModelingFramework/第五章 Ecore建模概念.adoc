@@ -85,3 +85,8 @@ image::Figure5.2.png[]
 
 
 > *EStructuralFeature* includes a number of attributes used to characterize both attributes and references. Five boolean attributes define how the structural feature stores and accesses values:
+
+[plantuml]
+----
+include::metadata.puml[]
+----

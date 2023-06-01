@@ -1,0 +1,52 @@
+@startuml
+
+class ENamedElement {
+    String name
+}
+
+class EClassifier {
+}
+
+class ETypedElement {
+}
+
+class EClass {
+    List<EClass> eSuperTypes
+    List<EAttribute> eAttributes
+    List<EReference> eReferences
+}
+note left: 表示类，包含0或多个属性/引用
+
+class EAttribute {
+    EDataType eAttributeType
+}
+note left: 表示属性，包含名称与类型
+
+class EDataType {
+}
+note left: 表示属性类型
+
+class EReference {
+    boolean containment
+    int lowerBound
+    int upperBound
+    EClass eReferenceType
+}
+note top: 表示与其他类的关联
+
+EClass "0" --> "*" EClass
+EClass "0" *--> "*" EAttribute
+EClass "0" *--> "*" EReference
+EAttribute --> "1" EDataType
+EReference -up-> "1" EClass
+
+EClassifier -up-|> ENamedElement
+EClass -up-|> EClassifier
+EDataType -up-|> EClassifier
+
+EAttribute -up-|> EStructuralFeature
+EReference -up-|> EStructuralFeature
+
+EStructuralFeature -up-|> ETypedElement
+ETypedElement -> EClassifier
+@enduml
