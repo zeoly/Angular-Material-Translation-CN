@@ -78,15 +78,20 @@ image::Figure5.1.png[]
 
 image::Figure5.2.png[]
 
+如图所示，*EStructuralFeature* 继承自其他超类。*ENamedElement* 仅定义了一个属性，即我们之前在每个类都已经见到的 *name*。绝大部分Ecore类都扩展自此类，以继承这个属性。
+
 > As the figure shows, *EStructuralFeature* is, itself, derived from other supertypes. *ENamedElement* defines just one attribute, the *name* that we have seen in every class discussed so far. Most classes in Ecore extend this class in order to inherit this attribute.
 
+另一个 *EAttribute* 与 *EReference* 的共同之处是都有一个类型的概念。因为在Ecore中也有其他类具有类型概念，所以 *eType* 属性被纳入到 *EStructuralFeature* 的直属父类 *ETypedElement* 中。注意 *eType* 的类型是 *EClassifier*，此类是 *EDataType* 和 *EClass* 的公共基类，对应是 *eAttrbituteType* 和 *eFeatureType* 的类型。
 
 > Another common aspect of *EAttribute* and *EReference* that we observed is the notion of a type. Because this is also shared with other classes in Ecore, as we will soon see, the *eType* attribute is factored out into *ETypedElement*, the immediate supertype of *EStructuralFeature*. Notice that the type of *eType* is *EClassifier*, a common base class of *EDataType* and *EClass*, which were the required types for *eAttrbituteType* and *eFeatureType*, respectively.
 
+*EStructuralFeature* 包含一系列描述属性与引用的属性。以下5个属性定义了结构特性是如何存储与访问值的：
 
 > *EStructuralFeature* includes a number of attributes used to characterize both attributes and references. Five boolean attributes define how the structural feature stores and accesses values:
 
-[plantuml]
-----
-include::metadata.puml[]
-----
+> . *changeable* determines whether the value of the feature may be externally set.
+. *transient* determines whether the feature is omitted from the serialization of the object to which it belongs.
+. *unique*, which is only meaningful for multiplicity-many features, specifies whether a single value is prevented from occurring more than once in the feature.
+. *unsettable* specifies whether the feature has an additional possible value, called unset, that is unique from any of its type's legal values, including `null` for an object type. The value of this attribute also determines the semantics of `EObject`'s `eUnset()` and `eIsSet()` reflective APIs: these methods change an unsettable feature's value to that unset value and test whether it is set to some other value, respectively. But, for a non-unsettable feature, they reset the feature's value to its default and test that it is set to a non-default value, respectively.
+. *volatile* specifies whether the feature has no storage directly associated with it; this is generally the case when the feature's value is derived purely from the values of other features. The bodies of the accessors for such features must be coded by hand in Java.
