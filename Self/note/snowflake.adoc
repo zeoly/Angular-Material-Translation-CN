@@ -1,4 +1,5 @@
 = 雪花算法
+:toc:
 
 == 核心算法
 
@@ -10,10 +11,71 @@
 - 5 bit，低位机器码
 - 12 bit，序列号，毫秒内递增
 
+== 计算流程
+
+[plantuml]
+----
+@startuml
+:获取当前时间戳;
+switch (与上次时间戳比较)
+case (早于)
+    :时钟回拨，抛出异常;
+    end
+case (等于)
+    :序列号自增1;
+    if (序列号 == 0) then (是)
+        :当前时间戳内序列号已分配完\n等待至下一个时间戳;
+    endif
+case (晚于)
+    :序列号重置为0;
+endswitch
+:更新上次时间戳;
+:使用时间戳+机器码+序列号生成id;
+end
+@enduml
+----
+
 == 存在问题
 
 === 时钟回退
 
-当机器时间回退时，可能导致主键重复
+当机器时间发生回退时，可能导致主键重复
 
-解决方案
+==== 改进方案
+
+[plantuml]
+----
+@startuml
+:获取当前时间戳;
+switch (与上次时间戳比较)
+case (早于)
+    repeat
+        if (是否早于2秒前) then (是)
+            #palegreen:回拨过多，抛出异常;
+            end
+        else (否)
+            #palegreen:获取当前时间戳对应历史序列值;
+            #palegreen:历史序列号自增1;
+            if (序列号 == 0) then (是)
+                #palegreen:历史序列号已分配完\n等待至下一个时间戳;
+            else (否)
+                #palegreen:存储当前时间戳对应序列;
+                #palegreen:使用时间戳+机器码+序列号生成id;
+                end
+            endif
+        endif
+    repeatwhile (当前时间戳早于上次时间戳) is (是)
+case (等于)
+    :序列号自增1;
+    if (序列号 == 0)
+        :当前时间戳内序列号已分配完\n等待至下一个时间戳;
+    endif
+case (晚于)
+    :序列号重置为0;
+endswitch
+#palegreen:存储当前时间戳对应序列;
+:更新上次时间戳;
+:使用时间戳+机器码+序列号生成id;
+end
+@enduml
+----
