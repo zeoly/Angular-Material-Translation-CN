@@ -47,8 +47,8 @@ end
 ----
 @startuml
 :获取当前时间戳;
-switch (与上次时间戳比较)
-case (早于)
+if (与上次时间戳比较) then (早于)
+partition 处理时间回拨 {
     repeat
         if (是否早于2秒前) then (是)
             #palegreen:回拨过多，抛出异常;
@@ -64,15 +64,17 @@ case (早于)
                 end
             endif
         endif
-    repeatwhile (当前时间戳早于上次时间戳) is (是)
-case (等于)
+    repeatwhile (当前时间戳早于上次时间戳) is (是) not (否，时间回退消失)
+}
+endif
+if (与上次时间戳比较) then (等于)
     :序列号自增1;
     if (序列号 == 0)
         :当前时间戳内序列号已分配完\n等待至下一个时间戳;
     endif
-case (晚于)
+else (晚于)
     :序列号重置为0;
-endswitch
+endif
 #palegreen:存储当前时间戳对应序列;
 :更新上次时间戳;
 :使用时间戳+机器码+序列号生成id;
