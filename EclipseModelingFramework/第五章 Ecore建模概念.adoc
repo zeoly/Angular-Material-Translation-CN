@@ -91,10 +91,10 @@ image::Figure5.2.png[]
 > *EStructuralFeature* includes a number of attributes used to characterize both attributes and references. Five boolean attributes define how the structural feature stores and accesses values:
 
 . *changeable* 表示是否可从外部设置此值
-. *transient* 表示此属性是否参与所属对象的序列化
-. *unique* 仅对大量的属性有意义，表示一个值只允许在此属性中出现不超过一次
-. *unsettable* 表示此属性是否有额外可能的值，
-. *volatile* 表示此属性无强关联，一般场景是此属性的值是由其他特性直接传递而来。这类特性在Java中需要编码来实现访问。
+. *transient* 表示特性是否参与所属对象的序列化
+. *unique* 仅对大量的特性有意义，表示一个值只允许在此属性中出现不超过一次
+. *unsettable* 表示此特性是否有额外可能的值，
+. *volatile* 表示此特性无强关联，一般场景是此特性的值是由其他特性直接传递而来。这类特性在Java中需要编码来实现访问。
 
 > . *changeable* determines whether the value of the feature may be externally set.
 . *transient* determines whether the feature is omitted from the serialization of the object to which it belongs.
@@ -105,3 +105,48 @@ image::Figure5.2.png[]
 
 
 > Before continuing, it is worth enlarging slightly on the notion of structural features whose values are derived from those of other features. Since we declare such features as volatile, they contribute nothing to the state of an object and, accordingly, they have nothing to offer to the serialized form. Hence, we usually declare them to be transient, as well. Moreover, to keep things simple, we generally do not want their values to be externally set, so we also declare them to be nonchangeable. In fact, throughout this discussion of Ecore, we will use the term derived to imply that a structural feature is volatile, transient, and non-changeable. Keep in mind that you are never responsible for determining appropriate values for derived structural features; we describe them only so you can use them to programmatically inspect a core model.
+
+=== 5.3.1 属性 Attributes
+
+我们已经了解了属性与引用的相同之处，现在就需要分开来看。图5.3描述了属性的特点。
+
+> Having looked at what attributes have in common with references, we will now examine what sets them apart. Figure 5.3 illustrates the unique aspects of *EAttribute*.
+
+image::Figure5.3.png[]
+
+处理继承自 *EStructuralFeature* 的所有属性外，*EAttribute* 额外定义了一个属性 *iD* ，表示此属性的值是否用于对模型包含类的实例做唯一区分
+
+> In addition to all of the attributes it inherits from *EStructuralFeature*, *EAttribute* defines one more, *iD*,[2] which determines whether the value of the attribute can be used to uniquely identify the instance of its containing class in a model.
+
+*EAttribute* 还定义了一个派生引用：*eAttributeType*，实际是 *EClassifier*，即前面章节提到的 *eType*。但此属性必须是一个数据类型，不能是一个类，即此引用将对象转换为一个 *EDataType*。
+
+> *EAttribute* also defines one derived reference: *eAttributeType*, which actually refers to the same *EClassifier* as *eType*, which we described in the previous subsection. However, the type of an attribute must be a data type and not a class, so this reference casts that object to an *EDataType*.
+
+如图5.1所示，一个 *EClass* 通过 *eAttributes* 引用包含了 *EAttributes*。*EClass* 定义了两个额外的引用，*eAllAttributes* 和 *eIDAttribute*。对于一个 *EClass* 实例，*eAllAttributes* 不仅包含自身的 *eAttributes*，还包含 *eAttributes* 所有超类型的引用，即 *EClasses* 通过 *eSuperTypes* 循环访问引用。*eIDAttribute* 指向 *eAllAttributes* 中 *iD* 为 `true` 的第一个 *EAttribute*。*eAllAttributes* 和 *eIDAttribute* 均由引用派生。
+
+> As we saw in Figure 5.1, *EAttributes* are contained by an *EClass* via its *eAttributes* reference. *EClass* defines two additional related references, *eAllAttributes* and *eIDAttribute*. For an instance of *EClass*, *eAllAttributes* includes not only its own *eAttributes*, but also those collected from the *eAttributes* references of all of its supertypes—that is, the *EClasses* accessible recursively through the *eSuperTypes* reference. As a convenience, *eIDAttribute* refers to the first *EAttribute* in *eAllAttributes* for which *iD* is `true`. Both *eAllAttributes* and *eIDAttribute* are derived references.
+
+=== 5.3.2 引用 References
+
+图5.4中展示了 *EReference* 的特性。
+
+> The unique aspects of *EReference* are illustrated in Figure 5.4.
+
+image::Figure5.4.png[]
+
+*EReference* 在 *EStructuralFeature* 的基础上，增加了两个引用和三个属性。第一个引用 *eReferenceType* 与
+*EAttribute* 的 *eAttributeType* 类似：表示 *EStructuralFeature* 中 *eType* 的 *EClassifier*，但可以转换为一个 *EClass*。与属性类似，派生自引用。另一个引用 *eOpposite* 表示双向关系中，反向的引用。因此这种关系由两个 *EReference* 表示，每个互为对方的 *eOpposite*。
+
+> *EReference* adds two references and three attributes to those defined by *EStructuralFeature*. The first reference, *eReferenceType*, is analgous to *EAttribute*'s *eAttributeType*: it refers to the same *EClassifier* as *EStructuralFeature*'s *eType*, but cast to an *EClass*. Like its attribute analog, it is a derived reference. The other, *eOpposite*, refers to the reference representing the opposite direction of a bidirectional association. Thus, such an association is represented by the two *EReference* s, each defining the other as its *eOpposite*.
+
+我们在5.2节中提到了包含的概念。在UML中被称为聚合关系，包含是一种关联的强类型，表示整体与部分的关系：一个对象不能直接或间接包含其自身的包含者；也至多只能有一个包含者；并且生命周期也跟随包含者。*containment* 属性表示一个 *EReference* 是否用于描述这样的一种关系；此属性设置在整体到部分的引用上，即包含者到被包含对象上。如果包含关系是显式双向的，则反向的引用派生的 *container* 属性也是 `true`。
+
+> We mentioned the notion of containment in Section 5.2. Known as "by-value aggregation" in UML, containment is a stronger type of association that implies a whole-part relationship: an object cannot, directly or indirectly, contain its own container; it can have no more than one container; and its lifespan ends with that of its container. The *containment* attribute indicates whether an *EReference* is being used in modeling such a relationship; it is set on the reference from the whole to the part, that is, from the container to the contained object. If the containment relationship is explicitly bidirectional, then for the opposite reference, the derived *container* attribute is also `true`.
+
+*EReference* 定义的第三个属性是 *resolveProxies*，用于EMF资源模型的持久化。如2.5.2章节中描述，当一个资源加载时，任何引用其他资源中已持久化的对象被代理表示。我们也说过，当一个对象第一次访问时，其资源被加载并返回真实对象。实际上，只有 *resolveProxies* 为 `true` 的引用才会执行此代理的自动方案。大多数场景中这是默认方案；但有时一个模型的结构需要防止交叉引用。通常这种场景来源于包含引用中只能在相同资源中存在的限制。这时 *resolveProxies* 设置为 `false`，允许一个更高效的实现的使用。在5.5.1章节中可以看的这样的一个例子。
+
+> The last attribute defined by *EReference*, *resolveProxies*, relates to EMF's resource model for persistence. We described in Section 2.5.2 how, when a resource is loaded, any referenced objects that are persisted in other resources are represented by proxies. We also said that, when such an object is accessed for the first time, its resource is loaded and the real object is returned. In fact, the automatic resolution of proxies is only performed for references that define *resolveProxies* to be `true`. This is the default and should normally be the case; however, sometimes the structure of a model can prevent a reference from ever being cross-document. Generally, such cases stem from the restriction on containment references that they may only exist between objects in the same resource. In these cases, *resolveProxies* can be `false`, permitting the use of a more efficient implementation. We will see an example of such a reference within Ecore in Section 5.5.1.
+
+*EReference* 在 *EClass* 的包含关系中，与 *EAttribute* 相似：一个 *EClass* 通过 *eReferences* 引用包含了 *EReferences*，定义了包含引用及其超类的 *eAllReferences* 。*eAllContainments* 表示 *eAllReferences* 中所有 *containment* 为 `true` 的 *EReferences*。*eAllReferences* 与 *eAllContainments* 都派生自引用。
+
+> *EReference* is also analogous to *EAttribute* in its containment relationship with *EClass*: an *EClass* contains *EReferences* via its *eReferences* reference, and defines *eAllReferences* to also include the references of its supertypes. Finally, *eAllContainments* refers to all of those *EReferences* accessible via *eAllReferences* for which *containment* is `true`. Both *eAllReferences* and *eAllContainments* are derived references.
