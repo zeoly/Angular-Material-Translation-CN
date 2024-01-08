@@ -4,3 +4,18 @@ win10无应用商店，但可以用其他方法安装
 . 在https://store.rg-adguard.net/中搜索此地址
 . 在结果列表中下载对应appxbundle或msixbundle文件
 . 使用powershell执行安装命令：Add-AppPackage .\Microsoft.Todos_1.48.21892.0_neutral_~_8wekyb3d8bbwe.AppxBundle
+
+
+设置小鹤双拼
+
+- 进入注册表项：\HKEY_CURRENT_USER\Software\Microsoft\InputMethod\Settings\CHS
+- 新建一个名为 UserDefinedDoublePinyinScheme0 的字符串值，值为 小鹤双拼*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt
+
+设置照片查看
+
+- 注册表 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations
+- 新建字符串值，名称为 .jpg，值为 PhotoViewer.FileAssoc.Tiff
+
+
+- 文件夹选项 - 常规 - 打开文件资源管理器时打开：此电脑
+- 设置 - 个性化 - 主题 - 桌面图标设置：计算机
