@@ -16,6 +16,13 @@ win10无应用商店，但可以用其他方法安装
 - 注册表 \HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations
 - 新建字符串值，名称为 .jpg，值为 PhotoViewer.FileAssoc.Tiff
 
+激活
+
+- slmgr.vbs -skms <ip>
+- slmgr.vbs -ato
+- slmgr.vbs -dlv
+
+其他设置
 
 - 文件夹选项 - 常规 - 打开文件资源管理器时打开：此电脑
 - 设置 - 个性化 - 主题 - 桌面图标设置：计算机
