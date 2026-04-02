@@ -1,2 +1,16 @@
 slmgr -skms 192.168.50.202:1688
 slmgr -ato
+
+# 激活Office
+cd "C:\Program Files\Microsoft Office\Office16"
+cscript ospp.vbs /sethst:192.168.50.202
+cscript ospp.vbs /act
+
+
+安装列表
+
+- git windows
+- tortoisvn
+- idea
+- todesk
+- docker desktop
